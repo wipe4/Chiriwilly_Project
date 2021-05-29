@@ -1,28 +1,32 @@
 #include <Servo.h>
 
-Servo myservo;  // create servo object to control a servo
-// twelve servo objects can be created on most boards
+Servo myservo;
 
-int pos = 90;    // variable to store the servo position
 
+int pos = 90; //90º cabeza centrada
+
+/*=== Inicio del programa ===*/
 void setup() {
-  myservo.attach(10);  // attaches the servo on pin 9 to the servo object
+  
+  myservo.attach(8);  //A Derecha   PIN 8
+  myservo.attach(9);  //B Izquierda PIN 9
+  myservo.attach(10); //C Arriba    PIN 10
 
 }
-
 
 void loop() {
-  mirar (3000);
-  no ();
-   no ();
-
+  
+  //Movimiento de cabeza
+  c_mirar (3000);
 
 }
 
 
-//FUNCIONES
+/*=== FUNCIONES ===*/
 
-void mirar (int speed) {
+
+/*C Arriba - Cabeza*/
+void c_mirar (int speed) {
 
   myservo.write(pos);
   sonido(100);
@@ -37,7 +41,7 @@ void mirar (int speed) {
 
 }
 
-void no () {
+void c_no () {
 
   myservo.write(pos + 45);
   delay(200);
