@@ -7,6 +7,7 @@ Servo myservo3;
 
 int pos = 90; //90º cabeza centrada
 
+
 /*=== Inicio del programa ===*/
 void setup() {
 
@@ -21,26 +22,57 @@ void loop() {
   //Movimiento de cabeza
   //c_mirar (3000);
 
-  
-  myservo2.write(pos + random(30, 180));
-  delay(300);
-  myservo3.write(pos - random(30, 180));
-  delay(300);
-  myservo1.write(pos - random(-80, 80));
-  sonido(200);
-  delay(500);
-  
+
+  //andar(500, 2);
+  delay(9000);
+  c_mirar (3000);
 
 }
 
 
 /*=== FUNCIONES ===*/
 
+void andar(int frames, int veces) {
+
+  for ( int a = 0; a <= veces; a += 1) {
+
+    delay(frames);
+    myservo1.write(150);
+    myservo2.write(180);
+    myservo3.write(180);
+    delay(frames);
+    myservo1.write(60);
+    myservo2.write(90);
+    myservo3.write(90);
+    delay(frames);
+    myservo1.write(-150);
+    myservo2.write(-180);
+    myservo3.write(-180);
+    delay(frames);
+    myservo1.write(60);
+    myservo2.write(90);
+    myservo3.write(90);
+  }
+
+}
+
+void aleatorio() {
+
+  myservo2.write(pos + random(30, 180));
+  delay(300);
+  myservo3.write(pos - random(30, 180));
+  delay(300);
+  myservo1.write(pos - random(-80, 80));
+  sonido(30);
+  delay(500);
+
+}
+
 
 /*C Arriba - Cabeza*/
 void c_mirar (int speed) {
 
- 
+
   myservo1.write(pos);
   sonido(100);
   delay(speed);
