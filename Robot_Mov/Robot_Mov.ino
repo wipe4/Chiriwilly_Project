@@ -10,6 +10,8 @@ Servo myservo3;
 
 int pos = 90; //90º cabeza centrada
 
+int speed = 5; //Velocidad general de los movimientos
+
 /*=== Inicio del programa ===*/
 void setup() {
 
@@ -43,25 +45,56 @@ void loop() {
   //c_no ();
   //c_no ();
 
-  
-  levantar_A();
-  //delay(300);
-  bajar_A();
-  delay(2000);
+    /*
+    girar_izquierda_C();
+    sonido(100);
+    levantar_B();
+    bajar_B();
+    reset_izquierda_C();
+    delay(1000);
 
+    girar_derecha_C();
+    sonido(100);
+    levantar_A();
+    bajar_A();
+    reset_derecha_C();
+    delay(1000);
 
-  levantar_B();
-  delay(300);
-  bajar_B();
-  delay(2000);
-
-  
-
+    sonido(100);
+    levantar_A();
+    levantar_B();
+    bajar_A();
+    bajar_B();
+    girar_izquierda_C();
+    reset_izquierda_C();
+    girar_derecha_C();
+    reset_derecha_C();
+    delay(1000);
+    */
 
 }
 
 
 /*=== FUNCIONES ===*/
+
+//Ambos brazos
+void levantar_A_B() {
+
+  myservo3.attach(A);
+  myservo2.attach(B);
+  int p = pos;
+
+  for ( int m = pos; m >= 0; m --) {
+    ////for ( int m = pos; m <= 180; m ++) {
+    myservo3.write(m);
+    myservo2.write(m);
+    delay(speed);
+  }
+  myservo3.detach();
+  myservo2.detach();
+
+}
+
 
 //Brazo derecho
 void levantar_A() {
@@ -69,7 +102,7 @@ void levantar_A() {
   myservo3.attach(A);
   for ( int m = pos; m >= 0; m --) {
     myservo3.write(m);
-    delay(10);
+    delay(speed);
   }
   myservo3.detach();
 
@@ -81,7 +114,7 @@ void bajar_A() {
   myservo3.attach(A);
   for ( int m = 0; m <= pos; m ++) {
     myservo3.write(m);
-    delay(10);
+    delay(speed);
   }
   myservo3.detach();
 
@@ -94,7 +127,7 @@ void levantar_B() {
   myservo2.attach(B);
   for ( int m = pos; m <= 180; m ++) {
     myservo2.write(m);
-    delay(10);
+    delay(speed);
   }
   myservo2.detach();
 }
@@ -104,25 +137,50 @@ void bajar_B() {
   myservo2.attach(B);
   for ( int m = 180; m >= pos; m --) {
     myservo2.write(m);
-    delay(10);
+    delay(speed);
   }
   myservo2.detach();
 }
 
+// Cabeza
+void girar_derecha_C() {
 
-girar_derecha_C(){
-
-
-    myservo1.attach(B);
+  myservo1.attach(C);
   for ( int m = pos; m <= 180; m ++) {
     myservo1.write(m);
-    delay(10);
+    delay(speed);
   }
-  myservo2.detach();
+  myservo1.detach();
 }
 
+void reset_derecha_C() {
 
-  
+  myservo1.attach(C);
+  for ( int m = 180; m >= pos; m --) {
+    myservo1.write(m);
+    delay(speed);
+  }
+  myservo1.detach();
+}
+
+void girar_izquierda_C() {
+
+  myservo1.attach(C);
+  for ( int m = pos; m >= 0; m --) {
+    myservo1.write(m);
+    delay(speed);
+  }
+  myservo1.detach();
+}
+
+void reset_izquierda_C() {
+
+  myservo1.attach(C);
+  for ( int m = 0; m <= pos; m ++) {
+    myservo1.write(m);
+    delay(speed);
+  }
+  myservo1.detach();
 }
 
 
