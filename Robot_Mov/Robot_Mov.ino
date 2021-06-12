@@ -7,8 +7,11 @@ Servo myservo3;
 #define A 8
 #define B 9
 #define C 10
+//Parameters
+const int micPin  = A0;
 
 int pos = 90; //90º cabeza centrada
+int micVal  = 0; //valor microfono
 
 int speed = 5; //Velocidad general de los movimientos
 
@@ -18,7 +21,7 @@ void setup() {
   Serial.begin(9600);
 
   // La posiciones corresponden mirando frontalmente
-  // al robot
+  // al robot++
 
   myservo3.attach(A);  //A Derecha   PIN 8
   myservo2.attach(B);  //B Izquierda PIN 9
@@ -37,6 +40,9 @@ void setup() {
 
 void loop() {
 
+  micVal = analogRead(micPin);
+  readMicrophone(micVal);
+
 
   //andar(500, 1);
   //delay(6000);
@@ -45,7 +51,7 @@ void loop() {
   //c_no ();
   //c_no ();
 
-    /*
+  /*
     girar_izquierda_C();
     sonido(100);
     levantar_B();
@@ -70,12 +76,43 @@ void loop() {
     girar_derecha_C();
     reset_derecha_C();
     delay(1000);
-    */
+  */
 
 }
 
 
 /*=== FUNCIONES ===*/
+
+//Leer microfono
+
+void readMicrophone(int val) {
+  
+  //Serial.print(F("mic val ")); Serial.println(micVal);
+
+
+  if (val > 945) {
+    Serial.println("mic detected");
+
+    girar_izquierda_C();
+    levantar_B();
+    bajar_B();
+    reset_izquierda_C();
+    girar_derecha_C();
+
+    levantar_A();
+    bajar_A();
+    reset_derecha_C();
+
+  }
+
+  if (val > 300) {
+
+    delay(500);
+    sonido(100);
+
+  }
+
+}
 
 //Ambos brazos
 void levantar_A_B() {
