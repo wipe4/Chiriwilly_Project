@@ -4,33 +4,128 @@ Servo myservo1;
 Servo myservo2;
 Servo myservo3;
 
+#define A 8
+#define B 9
+#define C 10
 
 int pos = 90; //90º cabeza centrada
-
 
 /*=== Inicio del programa ===*/
 void setup() {
 
-  myservo3.attach(8);  //A Derecha   PIN 8
-  myservo2.attach(9);  //B Izquierda PIN 9
-  myservo1.attach(10); //C Arriba    PIN 10
+  Serial.begin(9600);
+
+  // La posiciones corresponden mirando frontalmente
+  // al robot
+
+  myservo3.attach(A);  //A Derecha   PIN 8
+  myservo2.attach(B);  //B Izquierda PIN 9
+  myservo1.attach(C); //C Arriba    PIN 10
+
+  //Posicion inicial
+  myservo1.write(pos);
+  myservo2.write(pos);
+  myservo3.write(pos);
+
+  myservo1.detach();
+  myservo2.detach();
+  myservo3.detach();
 
 }
 
 void loop() {
 
-  //Movimiento de cabeza
+
+  //andar(500, 1);
+  //delay(6000);
   //c_mirar (3000);
+  //delay(3000);
+  //c_no ();
+  //c_no ();
+
+  
+  levantar_A();
+  //delay(300);
+  bajar_A();
+  delay(2000);
 
 
-  //andar(500, 2);
-  delay(9000);
-  c_mirar (3000);
+  levantar_B();
+  delay(300);
+  bajar_B();
+  delay(2000);
+
+  
+
 
 }
 
 
 /*=== FUNCIONES ===*/
+
+//Brazo derecho
+void levantar_A() {
+
+  myservo3.attach(A);
+  for ( int m = pos; m >= 0; m --) {
+    myservo3.write(m);
+    delay(10);
+  }
+  myservo3.detach();
+
+  Serial.println("Levantar_A: Fin");
+}
+
+void bajar_A() {
+
+  myservo3.attach(A);
+  for ( int m = 0; m <= pos; m ++) {
+    myservo3.write(m);
+    delay(10);
+  }
+  myservo3.detach();
+
+  Serial.println("Bajar_A: Fin");
+}
+
+//Brazo izquierdo
+void levantar_B() {
+
+  myservo2.attach(B);
+  for ( int m = pos; m <= 180; m ++) {
+    myservo2.write(m);
+    delay(10);
+  }
+  myservo2.detach();
+}
+
+void bajar_B() {
+
+  myservo2.attach(B);
+  for ( int m = 180; m >= pos; m --) {
+    myservo2.write(m);
+    delay(10);
+  }
+  myservo2.detach();
+}
+
+
+girar_derecha_C(){
+
+
+    myservo1.attach(B);
+  for ( int m = pos; m <= 180; m ++) {
+    myservo1.write(m);
+    delay(10);
+  }
+  myservo2.detach();
+}
+
+
+  
+}
+
+
 
 void andar(int frames, int veces) {
 
