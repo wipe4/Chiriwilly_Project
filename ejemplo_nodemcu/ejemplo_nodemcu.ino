@@ -8,9 +8,14 @@ Servo myservo_C;
 #define D4 2 //D4
 #define D3 0 //D3
 #define D2 4 //D2
+#define BUZZER_PIN 5 // Sonido
 
 int pos = 90; //90º cabeza centrada
-int speed = 5; //Velocidad general de los movimientos
+int speed = 10; //Velocidad general de los movimientos
+int steps = 6; // pasos de movimientos
+int tono; //Tono
+
+int H_arm = 180; //Altura máxima de los brazo
 
 void setup() {
 
@@ -36,23 +41,22 @@ void loop() {
   //micVal = analogRead(micPin);
   //readMicrophone(micVal);
 
+  /*
+    girar_izquierda_A();
+    levantar_B();
+    bajar_B();
+    delay(1000);
+    girar_derecha_A();
+    levantar_C();
+    bajar_C();
+    delay(1000);
 
-  //andar(500, 1);
-  //delay(6000);
-  //c_mirar (3000);
-  //delay(3000);
-  //c_no ();
-  //c_no ();
+  */
 
 
-  levantar_C();
-  delay(1000);
-  bajar_C();
-  delay(1000);
-  levantar_B();
-  delay(1000);
-  bajar_B();
-  delay(1000);
+  //sonido(50, 50);
+  //delay(100);
+
 
 
 }
@@ -64,7 +68,7 @@ void loop() {
 void levantar_C() {
 
   myservo_C.attach(D2);
-  for ( int m = pos; m >= 0; m --) {
+  for ( int m = pos; m >= 0; m = m - steps) {
     myservo_C.write(m);
     delay(speed);
   }
@@ -76,7 +80,7 @@ void levantar_C() {
 void bajar_C() {
 
   myservo_C.attach(D2);
-  for ( int m = 0; m <= pos; m ++) {
+  for ( int m = 0; m <= pos; m = m + steps) {
     myservo_C.write(m);
     delay(speed);
   }
@@ -91,7 +95,7 @@ void bajar_C() {
 void levantar_B() {
 
   myservo_B.attach(D3);
-  for ( int m = pos; m <= 180; m ++) {
+  for ( int m = pos; m <= 180; m = m + steps) {
     myservo_B.write(m);
     delay(speed);
   }
@@ -101,7 +105,7 @@ void levantar_B() {
 void bajar_B() {
 
   myservo_B.attach(D3);
-  for ( int m = 180; m >= pos; m --) {
+  for ( int m = 180; m >= pos; m = m - steps) {
     myservo_B.write(m);
     delay(speed);
   }
@@ -114,7 +118,7 @@ void bajar_B() {
 void girar_derecha_A() {
 
   myservo_A.attach(D4);
-  for ( int m = pos; m <= 180; m ++) {
+  for ( int m = pos; m <= 180; m = m + steps) {
     myservo_A.write(m);
     delay(speed);
   }
@@ -124,7 +128,7 @@ void girar_derecha_A() {
 void reset_derecha_A() {
 
   myservo_A.attach(D4);
-  for ( int m = 180; m >= pos; m --) {
+  for ( int m = 180; m >= pos; m = m - steps) {
     myservo_A.write(m);
     delay(speed);
   }
@@ -134,7 +138,7 @@ void reset_derecha_A() {
 void girar_izquierda_A() {
 
   myservo_A.attach(D4);
-  for ( int m = pos; m >= 0; m --) {
+  for ( int m = pos; m >= 0; m = m - steps) {
     myservo_A.write(m);
     delay(speed);
   }
@@ -144,9 +148,28 @@ void girar_izquierda_A() {
 void reset_izquierda_A() {
 
   myservo_A.attach(D4);
-  for ( int m = 0; m <= pos; m ++) {
+  for ( int m = 0; m <= pos; m = m + steps) {
     myservo_A.write(m);
     delay(speed);
   }
   myservo_A.detach();
+}
+
+
+int tonox() {
+
+  return random(1, 233);
+}
+
+
+void sonido (int time, int tono) {
+
+
+  tone (BUZZER_PIN, tono, time);
+  delay(time);
+
+
+
+
+
 }
