@@ -10,16 +10,25 @@ Servo myservo_C;
 #define D2 4 //D2
 #define BUZZER_PIN 5 // Sonido
 
+#define D5 14 //D5 microfono
+
 int pos = 90; //90º cabeza centrada
-int speed = 10; //Velocidad general de los movimientos
+int speed = 30; //Velocidad general de los movimientos
 int steps = 6; // pasos de movimientos
 int tono; //Tono
 
 int H_arm = 180; //Altura máxima de los brazo
 
+
+const int analogInPin = A0;  // ESP8266 Analog Pin ADC0 = A0
+
+int sensorValue = 0;  // value read from the pot
+
 void setup() {
 
-  ///Serial.begin(9600);
+  Serial.begin(115200);
+
+  pinMode(D5,INPUT);
 
   myservo_A.attach(D4);  //A Arriba
   myservo_B.attach(D3);  //B Izquierda
@@ -57,7 +66,14 @@ void loop() {
   //sonido(50, 50);
   //delay(100);
 
+  // read the analog in value
+  sensorValue = digitalRead(D5);
 
+  // print the readings in the Serial Monitor
+  Serial.print("sensor = ");
+  Serial.println(sensorValue);
+
+  delay(100);
 
 }
 
@@ -74,7 +90,7 @@ void levantar_C() {
   }
   myservo_C.detach();
 
-  ///Serial.println("Levantar_A: Fin");
+  Serial.println("levantar_C: Fin");
 }
 
 void bajar_C() {
@@ -86,7 +102,7 @@ void bajar_C() {
   }
   myservo_C.detach();
 
-  ///Serial.println("Bajar_A: Fin");
+  Serial.println("Bajar_C: Fin");
 }
 
 

@@ -41,7 +41,7 @@ void setup() {
 void loop() {
 
   micVal = analogRead(micPin);
-  readMicrophone(micVal);
+  //readMicrophone(micVal);
 
 
   //andar(500, 1);
@@ -51,7 +51,7 @@ void loop() {
   //c_no ();
   //c_no ();
 
-  /*
+  
     girar_izquierda_C();
     sonido(100);
     levantar_B();
@@ -76,7 +76,7 @@ void loop() {
     girar_derecha_C();
     reset_derecha_C();
     delay(1000);
-  */
+
 
 }
 
